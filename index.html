@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoroCash - Sistema de Créditos</title>
+    <style>
+        body {
+            background-color: #121214;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #202024;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+        }
+        h1 { color: #00b37e; font-size: 24px; margin-bottom: 10px; }
+        p { color: #c4c4cc; font-size: 14px; margin-bottom: 20px; }
+        .btn-pay {
+            background-color: #00875f;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        .btn-pay:hover { background-color: #00b37e; }
+        .status { margin-top: 15px; font-size: 13px; color: #f75a68; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🦜 LoroCash</h1>
+    <p>Adquira 1.000.000 de créditos automáticos por apenas 1 USDT.</p>
+    
+    <button class="btn-pay" onclick="verificarPagamento()">Pagar 1 USDT via Cripto</button>
+    
+    <div id="status-msg" class="status"></div>
+</div>
+
+<script>
+    function verificarPagamento() {
+        const statusDiv = document.getElementById('status-msg');
+        statusDiv.style.color = '#e1e1e6';
+        statusDiv.innerText = "Conectando ao gateway de pagamento...";
+
+        // Faz a chamada diretamente para a API que você acabou de criar na Render
+        fetch('https://onrender.com')
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === "success") {
+                    statusDiv.style.color = '#00b37e';
+                    statusDiv.innerText = "Sucesso! " + data.credit.toLocaleString() + " créditos foram liberados.";
+                } else {
+                    statusDiv.style.color = '#f75a68';
+                    statusDiv.innerText = "Pagamento pendente ou não encontrado.";
+                }
+            })
+            .catch(error => {
+                statusDiv.style.color = '#f75a68';
+                statusDiv.innerText = "Erro ao conectar ao servidor.";
+                console.error(error);
+            });
+    }
+</script>
+
+</body>
+</html>
