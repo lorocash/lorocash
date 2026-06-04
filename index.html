@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LoroCash - Sistema de Créditos</title>
+    <title>LoroCash - Sistema de Créditos Web3</title>
     <style>
         body {
-            background-color: #121214;
+            background-color: #0b0b0c;
             color: #ffffff;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -17,37 +17,49 @@
             margin: 0;
         }
         .container {
-            background-color: #202024;
+            background-color: #141416;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.6);
             text-align: center;
-            max-width: 350px;
+            max-width: 360px;
             width: 90%;
+            border: 1px solid #232326;
         }
-        h1 { color: #00b37e; font-size: 24px; margin-bottom: 10px; }
-        p { color: #c4c4cc; font-size: 14px; margin-bottom: 20px; }
-        .btn-pay {
-            background-color: #00875f;
+        .domain-badge {
+            background-color: #0052ff;
             color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        h1 { color: #00b37e; font-size: 26px; margin: 10px 0; }
+        p { color: #aeaebe; font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
+        .btn-pay {
+            background-color: #00b37e;
+            color: #0b0b0c;
             border: none;
-            padding: 12px 20px;
+            padding: 14px 20px;
             font-size: 16px;
             font-weight: bold;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             width: 100%;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
-        .btn-pay:hover { background-color: #00b37e; }
-        .status { margin-top: 15px; font-size: 13px; color: #f75a68; }
+        .btn-pay:hover { background-color: #02e09e; transform: translateY(-2px); }
+        .status { margin-top: 20px; font-size: 13px; color: #aeaebe; font-weight: 500; }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <div class="domain-badge">🔗 lorocash.base.eth</div>
     <h1>🦜 LoroCash</h1>
-    <p>Adquira 1.000.000 de créditos automáticos por apenas 1 USDT.</p>
+    <p>Adquira 1.000.000 de créditos automatizados na rede Tron ou BNB por apenas 1 USDT.</p>
     
     <button class="btn-pay" onclick="verificarPagamento()">Pagar 1 USDT via Cripto</button>
     
@@ -57,24 +69,23 @@
 <script>
     function verificarPagamento() {
         const statusDiv = document.getElementById('status-msg');
-        statusDiv.style.color = '#e1e1e6';
+        statusDiv.style.color = '#aeaebe';
         statusDiv.innerText = "Conectando ao gateway de pagamento...";
 
-        // Faz a chamada diretamente para a API que você acabou de criar na Render
         fetch('https://onrender.com')
             .then(response => response.json())
             .then(data => {
                 if(data.status === "success") {
                     statusDiv.style.color = '#00b37e';
-                    statusDiv.innerText = "Sucesso! " + data.credit.toLocaleString() + " créditos foram liberados.";
+                    statusDiv.innerText = "Sucesso! " + data.credit.toLocaleString() + " créditos liberados.";
                 } else {
                     statusDiv.style.color = '#f75a68';
-                    statusDiv.innerText = "Pagamento pendente ou não encontrado.";
+                    statusDiv.innerText = "Pagamento não detectado na blockchain.";
                 }
             })
             .catch(error => {
                 statusDiv.style.color = '#f75a68';
-                statusDiv.innerText = "Erro ao conectar ao servidor.";
+                statusDiv.innerText = "Erro ao conectar ao servidor da Render.";
                 console.error(error);
             });
     }
